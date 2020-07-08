@@ -103,6 +103,10 @@ class PostsController extends Controller {
         $post = Post::find($id);
         $post->title = $request->input('title');
         $post->body = $request->input('body');
+        // Check the image to delete it
+        if( $post->cover_image != 'null.jpg' ) {
+            Storage::delete('public/cover_images/'.$post->cover_image);
+        }
         if( $request->hasFile('cover_image') ) {
             $post->cover_image = $fileNameToStore;
         }
