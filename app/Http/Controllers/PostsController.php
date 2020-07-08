@@ -5,8 +5,11 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Post;
 
-class PostsController extends Controller
-{
+class PostsController extends Controller {
+
+    public function __construct() {
+        $this->middleware('auth', ['except' => ['index', 'show']]);
+    }
 
     // 🎣 GET ALL THE POST FUNCTION
     public function index() {
@@ -45,6 +48,12 @@ class PostsController extends Controller
     // 🎣 RENDER THE edit PAGE WITH THE $post DATA 
     public function edit($id) {
         $post = Post::find($id);
+
+        // Check for correct user
+        if( Auth()->user()->id !== $post->user_id ) {
+            return redirect('/posts')->with('error', 'Unauthorized page');
+        }
+
         return view('posts.edit')->with('post', $post);
     }
 
@@ -69,6 +78,12 @@ class PostsController extends Controller
     public function destroy($id) {
         
         $post = Post::find($id);
+
+        // Check for correct user
+        if( Auth()->user()->id !== $post->user_id ) {
+            return redirect('/posts')->with('error', 'Unauthorized page');
+        }
+
         $post->delete();
         return redirect('/posts')->with('success', 'Post deleted successfly');
 
