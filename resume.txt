@@ -1,0 +1,20 @@
+app/User.php
+app/Post.php
+
+app/Http/Controllers/PagesController.php
+app/Http/Controllers/PostsController.php
+app/Http/Controllers/DashboardController.php
+
+resources/views/layouts/app.blade.php
+resources/views/pages/ about|index|services
+resources/views/posts/ create|edit|index|show
+resources/views/include/ messages|navbar
+
+routes/web.php
+
+php artisan make:auth
+
+$ php artisan make:migration add_user_id_to_posts
+$ php artisan migrate
+
+$ php artisan storage:link
