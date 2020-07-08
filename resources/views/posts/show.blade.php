@@ -5,7 +5,7 @@
     <h1>{{ $post->title }}</h1>
     <div>{{ $post->body }}</div>
     <hr>
-    <small>Written on {{ $post->created_at }}</small>
+    <small>Written by {{ $post->user->name }} on {{ $post->created_at }}</small>
     <hr>
     <a href="/posts/{{$post->id}}/edit" class="btn btn-success">EDIT</a>
 
