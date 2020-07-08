@@ -7,31 +7,19 @@ use App\Post;
 
 class PostsController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
+    // 🎣 GET ALL THE POST FUNCTION
     public function index() {
         $posts = Post::orderBy('created_at', 'desc')->get();
         return view('posts.index')->with('posts', $posts);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    // 🎣 RENDER THE create PAGE
     public function create() {
         return view('posts.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+    // 🎯 CREATE NEW POST FUNCTION
     public function store(Request $request) {
 
         $this->validate($request, [
@@ -39,7 +27,6 @@ class PostsController extends Controller
             'body' => 'required'
         ]);
 
-        // CREATE NEW POST
         $post = new Post;
         $post->title = $request->input('title');
         $post->body = $request->input('body');
@@ -48,44 +35,26 @@ class PostsController extends Controller
         return redirect('/posts')->with('success', 'New post created successfly');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+    // 🎣 GET A SINGLE POST BY $id
     public function show($id) {
         $post = Post::find($id);
         return view('posts.show')->with('post', $post);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+    // 🎣 RENDER THE edit PAGE WITH THE $post DATA 
     public function edit($id) {
         $post = Post::find($id);
         return view('posts.edit')->with('post', $post);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+    // 🎯 UPDATE POST FUNCTION
     public function update(Request $request, $id) {
 
-        
         $this->validate($request, [
             'title' => 'required',
             'body' => 'required'
-            ]);
+        ]);
             
-        // UPDATE POST
         $post = Post::find($id);
         $post->title = $request->input('title');
         $post->body = $request->input('body');
@@ -95,12 +64,7 @@ class PostsController extends Controller
 
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+    // 🎯 DELETE POST BY $id
     public function destroy($id) {
         
         $post = Post::find($id);
