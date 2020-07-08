@@ -3,6 +3,8 @@
 @section('content')
     <a href="/posts" class="btn btn-primary">BACK</a>
     <h1>{{ $post->title }}</h1>
+    <img style="height:500px" src="/storage/cover_images/{{$post->cover_image}}" >
+    <br><br>
     <div>{{ $post->body }}</div>
     <hr>
     <small>Written by {{ $post->user->name }} on {{ $post->created_at }}</small>
@@ -16,5 +18,7 @@
             {!! Form::close() !!}
         @endif
     @endif
+
+    <br><br>
 
 @endsection
